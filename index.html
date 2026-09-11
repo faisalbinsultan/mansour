@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="مساعد الرياضيات مع منصور الزامل - الصف الثالث الابتدائي - الفصل الدراسي الأول"
+    >
+
+    <title>مساعد الرياضيات | منصور الزامل | الصف الثالث</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="page-bg"></div>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="site-header" id="top">
+
+        <div class="header-inner">
+
+            <a
+                class="brand"
+                href="#home"
+                aria-label="العودة للرئيسية"
+            >
+                <span class="brand-icon">🔢</span>
+
+                <span>
+                    <strong>مساعد الرياضيات</strong>
+                    <small>مع منصور الزامل</small>
+                </span>
+            </a>
+
+            <nav
+                class="main-nav"
+                aria-label="التنقل الرئيسي"
+            >
+
+                <a
+                    class="nav-link active"
+                    href="#home"
+                >
+                    🏠 الرئيسية
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="#lessons"
+                >
+                    📚 الدروس
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="#activities"
+                >
+                    📝 الأنشطة
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="#games"
+                >
+                    🎮 الألعاب التعليمية
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="#quiz"
+                >
+                    🏆 اختبر نفسك
+                </a>
+
+            </nav>
+
+            <div
+                class="score-board"
+                aria-live="polite"
+            >
+
+                <span class="score-star">⭐</span>
+
+                <span>نقاطك</span>
+
+                <strong id="scoreValue">0</strong>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main>
+
+
+        <!-- =========================
+             HERO
+        ========================== -->
+
+        <section
+            class="hero-section"
+            id="home"
+        >
+
+            <div class="hero-content">
+
+                <div class="hero-copy">
+
+                    <span class="eyebrow">
+                        🌟 الصف الثالث الابتدائي · الفصل الدراسي الأول
+                    </span>
+
+                    <h1>
+                        أهلاً بك في
+                        <br>
+                        <span>عالم الرياضيات!</span>
+                    </h1>
+
+                    <p>
+                        هذا الموقع صُمم خصيصاً لأصدقاء منصور في الصف الثالث الابتدائي،
+                        عشان نتعلم الرياضيات مع بعض بطريقة سهلة، ممتعة،
+                        وتخلينا نحب الأرقام أكثر!
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <a
+                            class="btn btn-primary"
+                            href="#lessons"
+                        >
+                            🚀 نبدأ الدروس
+                        </a>
+
+                        <a
+                            class="btn btn-light"
+                            href="#quiz"
+                        >
+                            🏆 اختبر نفسك
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-facts">
+
+                        <div>
+                            <strong>5</strong>
+                            <span>فصول</span>
+                        </div>
+
+                        <div>
+                            <strong>20+</strong>
+                            <span>تحدي</span>
+                        </div>
+
+                        <div>
+                            <strong>∞</strong>
+                            <span>محاولة للتعلم</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-image-wrap">
+
+                    <div class="hero-badge badge-one">
+                        💡 فكّر!
+                    </div>
+
+                    <div class="hero-badge badge-two">
+                        ⭐ كفو يا بطل!
+                    </div>
+
+                    <img
+                        src="mansour-hero.jpeg"
+                        alt="منصور الزامل في صورة تعليمية للرياضيات"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             WELCOME STRIP
+        ========================== -->
+
+        <section class="welcome-strip">
+
+            <div class="welcome-icon">
+                👋
+            </div>
+
+            <div>
+
+                <h2>
+                    يا هلا بأصدقاء منصور!
+                </h2>
+
+                <p>
+                    معًا نحل المسائل، نكتشف الأفكار،
+                    ونحقق النجاح خطوة بخطوة.
+                </p>
+
+            </div>
+
+            <div class="welcome-math">
+                ＋　−　×　÷
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CATEGORIES
+        ========================== -->
+
+        <section
+            class="categories-section section"
+            aria-labelledby="categoriesTitle"
+        >
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    اختر مغامرتك
+                </span>
+
+                <h2 id="categoriesTitle">
+                    وش بنسوي اليوم؟ 🎯
+                </h2>
+
+                <p>
+                    اختر القسم اللي يناسبك وخلنا نبدأ!
+                </p>
+
+            </div>
+
+
+            <div class="category-grid">
+
+
+                <a
+                    class="category-card lessons-card"
+                    href="#lessons"
+                >
+
+                    <div class="category-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        الدروس
+                    </h3>
+
+                    <p>
+                        شرح مبسط وواضح
+                    </p>
+
+                    <span class="card-arrow">
+                        ←
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="category-card activities-card"
+                    href="#activities"
+                >
+
+                    <div class="category-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        الأنشطة
+                    </h3>
+
+                    <p>
+                        تدرب وطوّر مهاراتك
+                    </p>
+
+                    <span class="card-arrow">
+                        ←
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="category-card games-card"
+                    href="#games"
+                >
+
+                    <div class="category-icon">
+                        🎮
+                    </div>
+
+                    <h3>
+                        الألعاب التعليمية
+                    </h3>
+
+                    <p>
+                        تعلّم مع المتعة
+                    </p>
+
+                    <span class="card-arrow">
+                        ←
+                    </span>
+
+                </a>
+
+
+                <a
+                    class="category-card quiz-card"
+                    href="#quiz"
+                >
+
+                    <div class="category-icon">
+                        🏆
+                    </div>
+
+                    <h3>
+                        اختبر نفسك
+                    </h3>
+
+                    <p>
+                        مراجعة وتمارين متنوعة
+                    </p>
+
+                    <span class="card-arrow">
+                        ←
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             INTERACTIVE LESSONS
+        ========================== -->
+
+        <section
+            class="section lessons-section"
+            id="lessons"
+        >
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    📚 الدروس التفاعلية
+                </span>
+
+                <h2>
+                    رحلة منصور مع الرياضيات
+                </h2>
+
+                <p>
+                    اختر الفصل، ثم اختر الدرس الذي تريد مراجعته.
+                </p>
+
+            </div>
+
+
+            <div class="lesson-layout">
+
+
+                <!-- CHAPTERS -->
+
+                <aside
+                    class="chapters-panel"
+                    aria-label="فصول المنهج"
+                >
+
+                    <div class="panel-title">
+                        فصول الفصل الدراسي الأول
+                    </div>
+
+                    <div
+                        id="chapterList"
+                        class="chapter-list"
+                    ></div>
+
+                </aside>
+
+
+                <!-- LESSON CONTENT -->
+
+                <div class="lesson-panel">
+
+
+                    <div class="lesson-topbar">
+
+                        <div>
+
+                            <span
+                                id="chapterLabel"
+                                class="chapter-label"
+                            >
+                                الفصل الأول
+                            </span>
+
+                            <h3 id="lessonTitle">
+                                القيمة المنزلية
+                            </h3>
+
+                        </div>
+
+
+                        <div class="lesson-progress">
+
+                            <span id="lessonCounter">
+                                الدرس 1 من 4
+                            </span>
+
+                            <div class="progress-track">
+
+                                <span
+                                    id="lessonProgress"
+                                ></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="lesson-tabs"
+                        id="lessonTabs"
+                    ></div>
+
+
+                    <div class="lesson-body">
+
+
+                        <!-- EXPLANATION -->
+
+                        <div class="explanation-card">
+
+                            <div class="explanation-icon">
+                                💡
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    فكرة الدرس
+                                </h4>
+
+                                <p id="lessonExplanation"></p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EXAMPLES -->
+
+                        <div
+                            class="examples-grid"
+                            id="lessonExamples"
+                        ></div>
+
+
+                        <!-- VIDEO -->
+
+                        <div class="video-card">
+
+                            <div class="video-header">
+
+                                <div>
+
+                                    <span class="mini-label">
+                                        🎥 شاهد وتعلّم
+                                    </span>
+
+                                    <h4 id="videoTitle">
+                                        فيديو شرح الدرس
+                                    </h4>
+
+                                </div>
+
+
+                                <a
+                                    id="youtubeLink"
+                                    href="#"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="video-link"
+                                >
+                                    فتح في يوتيوب ↗
+                                </a>
+
+                            </div>
+
+
+                            <div class="video-frame">
+
+                                <iframe
+                                    id="lessonVideo"
+                                    title="فيديو شرح الرياضيات"
+                                    src="https://www.youtube-nocookie.com/embed/rkxLVo4fyhU"
+                                    loading="lazy"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen
+                                ></iframe>
+
+                            </div>
+
+
+                            <p class="video-note">
+                                الفيديوهات مرتبطة بيوتيوب.
+                                إذا لم يعمل الفيديو داخل الصفحة،
+                                استخدم زر «فتح في يوتيوب».
+                            </p>
+
+                        </div>
+
+
+                        <!-- LESSON CHALLENGE -->
+
+                        <div
+                            class="challenge-card"
+                            id="lessonChallenge"
+                        >
+
+                            <div class="challenge-header">
+
+                                <div>
+
+                                    <span class="mini-label">
+                                        ⚡ تحدي الدرس
+                                    </span>
+
+                                    <h4>
+                                        ورّنا شطارتك!
+                                    </h4>
+
+                                </div>
+
+                                <span class="points-badge">
+                                    +10 ⭐
+                                </span>
+
+                            </div>
+
+
+                            <p id="challengeQuestion"></p>
+
+
+                            <div
+                                id="challengeOptions"
+                                class="challenge-options"
+                            ></div>
+
+
+                            <div
+                                id="challengeFeedback"
+                                class="feedback"
+                                role="status"
+                                aria-live="polite"
+                            ></div>
+
+
+                            <button
+                                id="challengeNext"
+                                class="btn btn-secondary hidden"
+                                type="button"
+                            >
+                                السؤال التالي ➜
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ACTIVITIES
+        ========================== -->
+
+        <section
+            class="section activities-section"
+            id="activities"
+        >
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    📝 أنشطة قصيرة
+                </span>
+
+                <h2>
+                    تدرّب بطريقة مختلفة
+                </h2>
+
+                <p>
+                    تمارين سريعة تساعدك تثبت الفكرة في رأسك.
+                </p>
+
+            </div>
+
+
+            <div class="activity-grid">
+
+
+                <!-- ACTIVITY 1 -->
+
+                <article class="activity-card">
+
+                    <div class="activity-icon">
+                        🔎
+                    </div>
+
+                    <h3>
+                        صائد الأعداد
+                    </h3>
+
+                    <p>
+                        ابحث عن العدد الذي يحقق الشرط.
+                    </p>
+
+                    <div class="activity-question">
+                        أي عدد قيمته المنزلية للـ 5 هي 500؟
+                    </div>
+
+                    <div
+                        class="activity-options"
+                        data-activity="place"
+                    >
+
+                        <button data-answer="false">
+                            352
+                        </button>
+
+                        <button data-answer="true">
+                            561
+                        </button>
+
+                        <button data-answer="false">
+                            95
+                        </button>
+
+                    </div>
+
+                    <div class="activity-feedback"></div>
+
+                </article>
+
+
+                <!-- ACTIVITY 2 -->
+
+                <article class="activity-card">
+
+                    <div class="activity-icon">
+                        🧮
+                    </div>
+
+                    <h3>
+                        اجمعها بسرعة
+                    </h3>
+
+                    <p>
+                        حل المسألة ثم اضغط على الإجابة.
+                    </p>
+
+                    <div class="activity-question">
+                        245 + 120 = ؟
+                    </div>
+
+                    <div
+                        class="activity-options"
+                        data-activity="add"
+                    >
+
+                        <button data-answer="false">
+                            355
+                        </button>
+
+                        <button data-answer="true">
+                            365
+                        </button>
+
+                        <button data-answer="false">
+                            375
+                        </button>
+
+                    </div>
+
+                    <div class="activity-feedback"></div>
+
+                </article>
+
+
+                <!-- ACTIVITY 3 -->
+
+                <article class="activity-card">
+
+                    <div class="activity-icon">
+                        ✏️
+                    </div>
+
+                    <h3>
+                        اطرح بذكاء
+                    </h3>
+
+                    <p>
+                        انتبه للمنازل عند الطرح.
+                    </p>
+
+                    <div class="activity-question">
+                        500 − 275 = ؟
+                    </div>
+
+                    <div
+                        class="activity-options"
+                        data-activity="subtract"
+                    >
+
+                        <button data-answer="false">
+                            215
+                        </button>
+
+                        <button data-answer="true">
+                            225
+                        </button>
+
+                        <button data-answer="false">
+                            235
+                        </button>
+
+                    </div>
+
+                    <div class="activity-feedback"></div>
+
+                </article>
+
+
+                <!-- ACTIVITY 4 -->
+
+                <article class="activity-card">
+
+                    <div class="activity-icon">
+                        ✖️
+                    </div>
+
+                    <h3>
+                        حكاية الضرب
+                    </h3>
+
+                    <p>
+                        حوّل الجمع المتكرر إلى ضرب.
+                    </p>
+
+                    <div class="activity-question">
+                        4 + 4 + 4 = ؟
+                    </div>
+
+                    <div
+                        class="activity-options"
+                        data-activity="multiply"
+                    >
+
+                        <button data-answer="false">
+                            3 × 3
+                        </button>
+
+                        <button data-answer="true">
+                            3 × 4
+                        </button>
+
+                        <button data-answer="false">
+                            4 × 4
+                        </button>
+
+                    </div>
+
+                    <div class="activity-feedback"></div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             EDUCATIONAL GAMES
+        ========================== -->
+
+        <section
+            class="section games-section"
+            id="games"
+        >
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    🎮 منطقة اللعب
+                </span>
+
+                <h2>
+                    ألعاب منصور التعليمية
+                </h2>
+
+                <p>
+                    اللعب هنا مو بس متعة...
+                    كل إجابة صحيحة تكسبك نقاط!
+                </p>
+
+            </div>
+
+
+            <div class="game-grid">
+
+
+                <!-- GUESS NUMBER -->
+
+                <article class="game-card game-number">
+
+                    <div class="game-art">
+                        🔢
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            خمن العدد
+                        </h3>
+
+                        <p>
+                            اضغط وخل النظام يعطيك تلميحًا عن عدد سري.
+                        </p>
+
+                        <button
+                            class="btn btn-small"
+                            id="guessGameBtn"
+                        >
+                            ابدأ اللعبة
+                        </button>
+
+                        <p
+                            class="game-result"
+                            id="guessGameResult"
+                        ></p>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TIMES GAME -->
+
+                <article class="game-card game-times">
+
+                    <div class="game-art">
+                        ⚡
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            سباق الضرب
+                        </h3>
+
+                        <p>
+                            حل أكبر عدد من مسائل الضرب خلال 30 ثانية.
+                        </p>
+
+                        <button
+                            class="btn btn-small"
+                            id="timesGameBtn"
+                        >
+                            ابدأ السباق
+                        </button>
+
+
+                        <div
+                            class="times-game hidden"
+                            id="timesGame"
+                        >
+
+                            <div class="timer">
+                                ⏱
+                                <span id="gameTimer">
+                                    30
+                                </span>
+                            </div>
+
+
+                            <div
+                                id="timesQuestion"
+                                class="times-question"
+                            ></div>
+
+
+                            <input
+                                id="timesAnswer"
+                                type="number"
+                                inputmode="numeric"
+                                aria-label="إجابة الضرب"
+                            >
+
+
+                            <button
+                                id="timesSubmit"
+                                class="btn btn-small"
+                            >
+                                إجابة
+                            </button>
+
+
+                            <p id="timesScore"></p>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ORDER GAME -->
+
+                <article class="game-card game-order">
+
+                    <div class="game-art">
+                        🏅
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            رتّب الأعداد
+                        </h3>
+
+                        <p>
+                            اكتشف العدد الأكبر والأصغر بسرعة.
+                        </p>
+
+                        <button
+                            class="btn btn-small"
+                            id="orderGameBtn"
+                        >
+                            تحداني!
+                        </button>
+
+                        <p
+                            class="game-result"
+                            id="orderGameResult"
+                        ></p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FINAL QUIZ
+        ========================== -->
+
+        <section
+            class="section quiz-section"
+            id="quiz"
+        >
+
+            <div class="section-heading">
+
+                <span class="section-kicker">
+                    🏆 الاختبار النهائي
+                </span>
+
+                <h2>
+                    اختبر نفسك مع منصور
+                </h2>
+
+                <p>
+                    اختبار شامل سريع من جميع فصول المنهج.
+                </p>
+
+            </div>
+
+
+            <div class="quiz-shell">
+
+
+                <div class="quiz-status">
+
+                    <div>
+
+                        <span>
+                            السؤال
+                        </span>
+
+                        <strong id="quizNumber">
+                            1
+                        </strong>
+
+                        <span>
+                            من 10
+                        </span>
+
+                    </div>
+
+
+                    <div class="quiz-meter">
+
+                        <span id="quizMeter"></span>
+
+                    </div>
+
+
+                    <div class="quiz-score">
+                        ⭐
+                        <span id="quizScore">
+                            0
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="quiz-content">
+
+                    <span
+                        class="quiz-chapter"
+                        id="quizChapter"
+                    >
+                        القيمة المنزلية
+                    </span>
+
+                    <h3 id="quizQuestion"></h3>
+
+
+                    <div
+                        id="quizOptions"
+                        class="quiz-options"
+                    ></div>
+
+
+                    <div
+                        id="quizFeedback"
+                        class="feedback"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <button
+                        id="quizNext"
+                        class="btn btn-primary hidden"
+                        type="button"
+                    >
+                        التالي ➜
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="final-result hidden"
+                id="finalResult"
+            >
+
+                <div class="trophy">
+                    🏆
+                </div>
+
+                <h3>
+                    خلصت الاختبار!
+                </h3>
+
+                <p id="finalMessage"></p>
+
+                <strong id="finalScore"></strong>
+
+                <button
+                    class="btn btn-primary"
+                    id="restartQuiz"
+                >
+                    إعادة الاختبار
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FRIENDS / SCHOOL
+        ========================== -->
+
+        <section class="section friends-section">
+
+            <div class="friends-card">
+
+                <div class="friends-icon">
+                    👨‍👩‍👧‍👦
+                </div>
+
+
+                <div>
+
+                    <span class="section-kicker">
+                        أصدقاء منصور
+                    </span>
+
+                    <h2>
+                        معًا نحو مستقبل مشرق ❤️
+                    </h2>
+
+                    <p>
+                        نتعلم، نتدرب، نغلط، نصحح...
+                        وبالنهاية ننجح!
+                    </p>
+
+                </div>
+
+
+                <div class="school-info">
+
+                    <strong>
+                        🏫 المدرسة الرابعة والأربعون
+                    </strong>
+
+                    <span>
+                        المعلمة أشواق المحيسن
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <p>
+            ✨ «الأرقام تصنع قصصًا جميلة.. فكن بطل قصتك!» ✨
+        </p>
+
+        <span>
+            صُمم لأصدقاء منصور الزامل · الصف الثالث الابتدائي
+        </span>
+
+    </footer>
+
+
+    <!-- =========================
+         EXTRA UI
+    ========================== -->
+
+    <button
+        class="to-top"
+        id="toTop"
+        aria-label="العودة للأعلى"
+    >
+        ↑
+    </button>
+
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="app.js"></script>
+
+</body>
+</html>
