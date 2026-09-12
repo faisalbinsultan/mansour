@@ -1680,6 +1680,7 @@ if (
 
 /* =========================================================
    ORDER GAME
+   ترتيب عربي من اليمين إلى اليسار
 ========================================================= */
 
 const orderGameBtn =
@@ -1698,18 +1699,24 @@ if (orderGameBtn) {
 
         orderNumbers = [];
 
-        // إنشاء 3 أعداد مختلفة
+
+        /* إنشاء 3 أعداد مختلفة */
+
         while (orderNumbers.length < 3) {
 
             const number =
                 Math.floor(Math.random() * 90) + 10;
 
             if (!orderNumbers.includes(number)) {
+
                 orderNumbers.push(number);
+
             }
 
         }
 
+
+        /* الإجابة الصحيحة من الأصغر إلى الأكبر */
 
         orderCorrectAnswer =
             [...orderNumbers].sort(
@@ -1723,34 +1730,50 @@ if (orderGameBtn) {
 
         orderGameResult.innerHTML = `
 
-            <div style="margin-top:15px;">
+            <div
+                style="
+                    margin-top:15px;
+                    direction:rtl;
+                "
+            >
 
                 <strong>
                     🔢 رتّب الأعداد من الأصغر إلى الأكبر
                 </strong>
+
 
                 <div
                     style="
                         font-size:22px;
                         font-weight:800;
                         margin:15px 0;
+                        direction:rtl;
                     "
                 >
                     ${orderNumbers.join("  •  ")}
                 </div>
 
+
                 <p>
-                    اكتب الأعداد في الخانات بالترتيب الصحيح:
+                    ابدأ من الخانة الموجودة على اليمين 👈
                 </p>
 
+
+                <!--
+                    ترتيب عربي:
+                    الخانة الأولى على اليمين
+                    ثم الثانية
+                    ثم الثالثة على اليسار
+                -->
 
                 <div
                     style="
                         display:flex;
+                        flex-direction:row-reverse;
                         justify-content:center;
                         align-items:center;
                         gap:8px;
-                        direction:ltr;
+                        direction:rtl;
                         margin:15px 0;
                     "
                 >
@@ -1760,6 +1783,8 @@ if (orderGameBtn) {
                         type="number"
                         inputmode="numeric"
                         placeholder="1"
+                        dir="ltr"
+                        aria-label="العدد الأول"
                         style="
                             width:75px;
                             padding:10px;
@@ -1770,15 +1795,19 @@ if (orderGameBtn) {
                         "
                     >
 
+
                     <span style="font-size:20px;">
-                        →
+                        ←
                     </span>
+
 
                     <input
                         id="orderInput2"
                         type="number"
                         inputmode="numeric"
                         placeholder="2"
+                        dir="ltr"
+                        aria-label="العدد الثاني"
                         style="
                             width:75px;
                             padding:10px;
@@ -1789,15 +1818,19 @@ if (orderGameBtn) {
                         "
                     >
 
+
                     <span style="font-size:20px;">
-                        →
+                        ←
                     </span>
+
 
                     <input
                         id="orderInput3"
                         type="number"
                         inputmode="numeric"
                         placeholder="3"
+                        dir="ltr"
+                        aria-label="العدد الثالث"
                         style="
                             width:75px;
                             padding:10px;
@@ -1826,6 +1859,7 @@ if (orderGameBtn) {
                 ></p>
 
             </div>
+
         `;
 
 
@@ -1845,57 +1879,70 @@ if (orderGameBtn) {
             document.getElementById("orderFeedback");
 
 
-        orderSubmit.addEventListener("click", () => {
+        /* التحقق من الإجابة */
 
-            const userNumbers = [
-                Number(orderInput1.value),
-                Number(orderInput2.value),
-                Number(orderInput3.value)
-            ];
+        orderSubmit.addEventListener(
+            "click",
+            () => {
+
+                const userNumbers = [
+
+                    Number(orderInput1.value),
+
+                    Number(orderInput2.value),
+
+                    Number(orderInput3.value)
+
+                ];
 
 
-            // التأكد من تعبئة الخانات
-            if (
-                !orderInput1.value ||
-                !orderInput2.value ||
-                !orderInput3.value
-            ) {
+                /* التأكد من تعبئة الخانات */
 
-                orderFeedback.textContent =
-                    "✏️ عبّئ الخانات الثلاث أولًا.";
+                if (
+                    !orderInput1.value ||
+                    !orderInput2.value ||
+                    !orderInput3.value
+                ) {
 
-                return;
+                    orderFeedback.textContent =
+                        "✏️ عبّئ الخانات الثلاث أولًا.";
+
+                    return;
+                }
+
+
+                const isCorrect =
+                    userNumbers.every(
+                        (number, index) =>
+                            number ===
+                            orderCorrectAnswer[index]
+                    );
+
+
+                if (isCorrect) {
+
+                    orderFeedback.innerHTML =
+                        "🎉 ممتاز! رتبت الأعداد بشكل صحيح! +5 ⭐";
+
+
+                    orderSubmit.disabled = true;
+
+                    orderInput1.disabled = true;
+                    orderInput2.disabled = true;
+                    orderInput3.disabled = true;
+
+
+                    addScore(5);
+
+                } else {
+
+                    orderFeedback.innerHTML =
+                        "💪 مو صحيح! حاول مرة ثانية.<br>🤔 تذكّر: ابدأ بالعدد الأصغر من جهة اليمين.";
+
+                }
+
             }
-
-
-            const isCorrect =
-                userNumbers.every(
-                    (number, index) =>
-                        number === orderCorrectAnswer[index]
-                );
-
-
-            if (isCorrect) {
-
-                orderFeedback.innerHTML =
-                    "🎉 ممتاز! رتبت الأعداد بشكل صحيح! +5 ⭐";
-
-                orderSubmit.disabled = true;
-
-                orderInput1.disabled = true;
-                orderInput2.disabled = true;
-                orderInput3.disabled = true;
-
-                addScore(5);
-
-            } else {
-
-                orderFeedback.innerHTML =
-                    "💪 مو صحيح! حاول مرة ثانية.<br>🤔 فكّر: أي عدد هو الأصغر؟";
-
-            }
-
-        });
+        );
 
 
         orderInput1.focus();
@@ -1903,7 +1950,6 @@ if (orderGameBtn) {
     });
 
 }
-
 
 /* =========================================================
    TIMES TABLE GAME
