@@ -1748,7 +1748,7 @@ if (orderGameBtn) {
 
 
                 <p>
-                    ابدأ من الخانة الموجودة على اليمين 👈
+                    ابدأ بالعدد الاصغر من الخانة الموجودة على اليمين 👈
                 </p>
 
 
@@ -1762,7 +1762,7 @@ if (orderGameBtn) {
                 <div
                     style="
                         display:flex;
-                        flex-direction:row-reverse;
+                        flex-direction:row;
                         justify-content:center;
                         align-items:center;
                         gap:8px;
