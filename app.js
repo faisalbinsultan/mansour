@@ -1296,11 +1296,15 @@ activityOptions.forEach(container => {
 
         button.addEventListener("click", () => {
 
+            if (
+                container.dataset.completed === "true"
+            ) {
+                return;
+            }
+
+
             const isCorrect =
                 button.dataset.answer === "true";
-
-
-            attempts++;
 
 
             /* =========================================
@@ -1308,14 +1312,6 @@ activityOptions.forEach(container => {
             ========================================= */
 
             if (isCorrect) {
-
-                // منع تكرار احتساب النقاط
-                if (
-                    container.dataset.completed === "true"
-                ) {
-                    return;
-                }
-
 
                 container.dataset.completed = "true";
 
@@ -1347,19 +1343,17 @@ activityOptions.forEach(container => {
                WRONG ANSWER
             ========================================= */
 
+            attempts++;
+
+
             button.classList.add("wrong");
 
 
-            // إزالة علامة الخطأ بعد لحظات
             setTimeout(() => {
+
                 button.classList.remove("wrong");
+
             }, 700);
-
-
-            /*
-             * لا نعطل الأزرار هنا
-             * حتى يستطيع الطالب المحاولة مرة أخرى
-             */
 
 
             if (attempts === 1) {
@@ -1367,14 +1361,16 @@ activityOptions.forEach(container => {
                 feedback.textContent =
                     "💪 مو صحيح، فكّر شوي وجرب مرة ثانية!";
 
+            }
 
-            } else if (attempts === 2) {
+            else if (attempts === 2) {
 
                 feedback.textContent =
-                    "🧠 قريب! ركّز على المنازل أو العملية المطلوبة.";
+                    "🧠 قريب! ركّز على السؤال وفكّر في المنازل أو العملية المطلوبة.";
 
+            }
 
-            } else {
+            else {
 
                 feedback.textContent =
                     "🔎 خذ وقتك وفكّر خطوة خطوة، أنت تقدر!";
