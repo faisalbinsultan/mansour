@@ -1364,25 +1364,138 @@ const guessGameBtn =
 const guessGameResult =
     document.getElementById("guessGameResult");
 
+let secretNumber = 0;
+let guessAttempts = 0;
+
 
 if (guessGameBtn) {
 
     guessGameBtn.addEventListener("click", () => {
 
-        const secret =
-            Math.floor(Math.random() * 9) + 1;
+        secretNumber =
+            Math.floor(Math.random() * 20) + 1;
+
+        guessAttempts = 0;
+
+        guessGameBtn.textContent = "ابدأ من جديد 🔄";
+
+        guessGameResult.innerHTML = `
+            <div style="margin-top:15px;">
+
+                <strong>
+                    🤔 أنا أفكر في عدد من 1 إلى 20
+                </strong>
+
+                <p style="margin:10px 0;">
+                    💡 تلميح: العدد
+                    ${
+                        secretNumber % 2 === 0
+                            ? "زوجي"
+                            : "فردي"
+                    }
+                </p>
+
+                <p>
+                    اكتب تخمينك:
+                </p>
+
+                <input
+                    id="guessInput"
+                    type="number"
+                    min="1"
+                    max="20"
+                    placeholder="؟"
+                    style="
+                        width:90px;
+                        padding:10px;
+                        border-radius:10px;
+                        border:2px solid #ddd;
+                        text-align:center;
+                        font-size:18px;
+                    "
+                >
+
+                <button
+                    id="guessSubmit"
+                    class="btn btn-small"
+                    type="button"
+                    style="margin-right:8px;"
+                >
+                    تحقق 🎯
+                </button>
+
+                <p
+                    id="guessFeedback"
+                    style="margin-top:12px;"
+                ></p>
+
+            </div>
+        `;
 
 
-        const hint =
-            secret % 2 === 0
-                ? "زوجي"
-                : "فردي";
+        const guessInput =
+            document.getElementById("guessInput");
+
+        const guessSubmit =
+            document.getElementById("guessSubmit");
+
+        const guessFeedback =
+            document.getElementById("guessFeedback");
 
 
-        guessGameResult.textContent =
-            `🤫 العدد السري كان ${secret} — وهو عدد ${hint}!`;
+        guessSubmit.addEventListener("click", () => {
 
-        addScore(5);
+            const userGuess =
+                Number(guessInput.value);
+
+
+            if (
+                !userGuess ||
+                userGuess < 1 ||
+                userGuess > 20
+            ) {
+
+                guessFeedback.textContent =
+                    "✏️ اكتب عددًا من 1 إلى 20.";
+
+                return;
+            }
+
+
+            guessAttempts++;
+
+
+            if (userGuess === secretNumber) {
+
+                guessFeedback.innerHTML =
+                    `🎉 كفو يا بطل! عرفت العدد بعد ${guessAttempts} محاولة! ⭐`;
+
+                guessSubmit.disabled = true;
+
+                guessInput.disabled = true;
+
+                addScore(5);
+
+                return;
+            }
+
+
+            if (userGuess < secretNumber) {
+
+                guessFeedback.textContent =
+                    "🔼 العدد السري أكبر من تخمينك... حاول مرة ثانية!";
+
+            } else {
+
+                guessFeedback.textContent =
+                    "🔽 العدد السري أصغر من تخمينك... حاول مرة ثانية!";
+
+            }
+
+        });
+
+
+        guessInput.focus();
 
     });
 
@@ -1399,33 +1512,157 @@ const orderGameBtn =
 const orderGameResult =
     document.getElementById("orderGameResult");
 
+let orderNumbers = [];
+let orderCorrectAnswer = [];
+
 
 if (orderGameBtn) {
 
     orderGameBtn.addEventListener("click", () => {
 
-        const numbers = [
-            Math.floor(Math.random() * 90) + 10,
-            Math.floor(Math.random() * 90) + 10,
-            Math.floor(Math.random() * 90) + 10
-        ];
+        orderNumbers = [];
+
+        while (orderNumbers.length < 3) {
+
+            const number =
+                Math.floor(Math.random() * 90) + 10;
+
+            if (!orderNumbers.includes(number)) {
+                orderNumbers.push(number);
+            }
+
+        }
 
 
-        const sorted = [...numbers].sort(
-            (a, b) => a - b
-        );
+        orderCorrectAnswer =
+            [...orderNumbers].sort(
+                (a, b) => a - b
+            );
+
+
+        orderGameBtn.textContent =
+            "تحداني مرة ثانية 🔄";
 
 
         orderGameResult.innerHTML = `
-            الأعداد:
-            ${numbers.join(" ، ")}
-            <br>
-            🔽 من الأصغر إلى الأكبر:
-            ${sorted.join(" ، ")}
+
+            <div style="margin-top:15px;">
+
+                <strong>
+                    🔢 رتّب الأعداد من الأصغر إلى الأكبر:
+                </strong>
+
+                <div
+                    style="
+                        font-size:22px;
+                        font-weight:800;
+                        margin:15px 0;
+                    "
+                >
+                    ${orderNumbers.join(" ، ")}
+                </div>
+
+
+                <p>
+                    اكتب الترتيب الصحيح:
+                </p>
+
+
+                <input
+                    id="orderInput"
+                    type="text"
+                    inputmode="numeric"
+                    placeholder="مثال: 12 ، 25 ، 40"
+                    style="
+                        width:200px;
+                        padding:10px;
+                        border-radius:10px;
+                        border:2px solid #ddd;
+                        text-align:center;
+                        font-size:16px;
+                    "
+                >
+
+
+                <button
+                    id="orderSubmit"
+                    class="btn btn-small"
+                    type="button"
+                    style="margin-right:8px;"
+                >
+                    تحقق 🎯
+                </button>
+
+
+                <p
+                    id="orderFeedback"
+                    style="margin-top:12px;"
+                ></p>
+
+            </div>
         `;
 
 
-        addScore(5);
+        const orderInput =
+            document.getElementById("orderInput");
+
+        const orderSubmit =
+            document.getElementById("orderSubmit");
+
+        const orderFeedback =
+            document.getElementById("orderFeedback");
+
+
+        orderSubmit.addEventListener("click", () => {
+
+            const userNumbers =
+                orderInput.value
+                    .split(/[،, ]+/)
+                    .filter(Boolean)
+                    .map(Number);
+
+
+            if (
+                userNumbers.length !== 3 ||
+                userNumbers.some(number => Number.isNaN(number))
+            ) {
+
+                orderFeedback.textContent =
+                    "✏️ اكتب الأعداد الثلاثة بالترتيب.";
+
+                return;
+            }
+
+
+            const isCorrect =
+                userNumbers.every(
+                    (number, index) =>
+                        number === orderCorrectAnswer[index]
+                );
+
+
+            if (isCorrect) {
+
+                orderFeedback.textContent =
+                    "🎉 ممتاز! رتبت الأعداد بشكل صحيح! +5 ⭐";
+
+                orderSubmit.disabled = true;
+
+                orderInput.disabled = true;
+
+                addScore(5);
+
+            } else {
+
+                orderFeedback.textContent =
+                    "💪 مو صحيح! حاول مرة ثانية وفكّر في أي عدد أصغر.";
+
+            }
+
+        });
+
+
+        orderInput.focus();
 
     });
 
