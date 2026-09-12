@@ -1391,6 +1391,8 @@ activityOptions.forEach(container => {
    GUESS NUMBER GAME
 ========================================================= */
 
+const guessGameBtn = document.querySelector("#guessGameBtn");
+const guessGame = document.querySelector("#guessGame");
 const guessInput = document.querySelector("#guessInput");
 const guessButton = document.querySelector("#guessButton");
 const guessResult = document.querySelector("#guessResult");
@@ -1399,53 +1401,50 @@ let secretNumber = 0;
 let guessAttempts = 0;
 
 
-/* إنشاء عدد سري جديد */
+/* -------------------------
+   START / RESTART GAME
+------------------------- */
 
 function createSecretNumber() {
 
-    /* العدد السري من 1 إلى 99 */
-    secretNumber =
-        Math.floor(Math.random() * 99) + 1;
-
+    secretNumber = Math.floor(Math.random() * 99) + 1;
     guessAttempts = 0;
 
     guessInput.value = "";
-
     guessInput.disabled = false;
     guessButton.disabled = false;
 
     guessResult.textContent =
         "🤔 أنا أفكر في عدد من 1 إلى 99... خمن وش هو!";
+
+    guessInput.focus();
 }
 
 
-/* التحقق من التخمين */
+/* -------------------------
+   CHECK GUESS
+------------------------- */
 
 function checkGuess() {
 
-    const guess =
-        Number(guessInput.value);
-
-
-    /* التأكد من صحة الإدخال */
+    const guess = Number(guessInput.value);
 
     if (
         !Number.isInteger(guess) ||
         guess < 1 ||
         guess > 99
     ) {
-
         guessResult.textContent =
-            "🔢 اكتب عددًا من 1 إلى 99.";
-
+            "🔢 اكتب عددًا صحيحًا من 1 إلى 99.";
         return;
     }
-
 
     guessAttempts++;
 
 
-    /* الإجابة الصحيحة */
+    /* -------------------------
+       CORRECT ANSWER
+    ------------------------- */
 
     if (guess === secretNumber) {
 
@@ -1457,13 +1456,16 @@ function checkGuess() {
         guessInput.disabled = true;
         guessButton.disabled = true;
 
+        guessGameBtn.textContent =
+            "العب مرة ثانية 🔄";
+
         return;
     }
 
 
-    /* =====================================================
-       التلميحات
-    ===================================================== */
+    /* -------------------------
+       NUMBER INFORMATION
+    ------------------------- */
 
     const secretTens =
         Math.floor(secretNumber / 10);
@@ -1472,10 +1474,10 @@ function checkGuess() {
         secretNumber % 10;
 
 
-    /* -----------------------------------------------------
-       المحاولة الأولى:
+    /* -------------------------
+       HINT 1
        أكبر أو أصغر
-    ----------------------------------------------------- */
+    ------------------------- */
 
     if (guessAttempts === 1) {
 
@@ -1494,30 +1496,38 @@ function checkGuess() {
     }
 
 
-    /* -----------------------------------------------------
-       المحاولة الثانية:
-       نطاق العدد
-    ----------------------------------------------------- */
+    /* -------------------------
+       HINT 2
+       العشرات
+    ------------------------- */
 
-if (guessAttempts === 2) {
-    if (secretNumber < 10) {
-        guessResult.textContent =
-            "🧠 تلميح: العدد السري من الأعداد من 1 إلى 9.";
-    } else {
-        const tensStart = secretTens * 10;
-        const tensEnd = tensStart + 9;
+    if (guessAttempts === 2) {
 
-        guessResult.textContent =
-            `🧠 تلميح: العدد السري بين ${tensStart} و${tensEnd}.`;
+        if (secretNumber < 10) {
+
+            guessResult.textContent =
+                "🧠 تلميح: العدد السري من الأعداد من 1 إلى 9.";
+
+        } else {
+
+            const tensStart =
+                secretTens * 10;
+
+            const tensEnd =
+                tensStart + 9;
+
+            guessResult.textContent =
+                `🧠 تلميح: العدد السري بين ${tensStart} و${tensEnd}.`;
+        }
+
+        return;
     }
-    return;
-}
 
 
-    /* -----------------------------------------------------
-       المحاولة الثالثة:
-       زوجي أو فردي
-    ----------------------------------------------------- */
+    /* -------------------------
+       HINT 3
+       زوجي / فردي
+    ------------------------- */
 
     if (guessAttempts === 3) {
 
@@ -1536,10 +1546,10 @@ if (guessAttempts === 2) {
     }
 
 
-    /* -----------------------------------------------------
-       المحاولة الرابعة:
-       القيمة المنزلية
-    ----------------------------------------------------- */
+    /* -------------------------
+       HINT 4
+       العشرات والآحاد
+    ------------------------- */
 
     if (guessAttempts === 4) {
 
@@ -1568,10 +1578,10 @@ if (guessAttempts === 2) {
     }
 
 
-    /* -----------------------------------------------------
-       المحاولة الخامسة:
+    /* -------------------------
+       HINT 5
        مجموع الرقمين
-    ----------------------------------------------------- */
+    ------------------------- */
 
     if (guessAttempts === 5) {
 
@@ -1593,10 +1603,10 @@ if (guessAttempts === 2) {
     }
 
 
-    /* -----------------------------------------------------
-       المحاولة السادسة:
+    /* -------------------------
+       HINT 6
        الفرق بين الرقمين
-    ----------------------------------------------------- */
+    ------------------------- */
 
     if (guessAttempts === 6) {
 
@@ -1618,10 +1628,9 @@ if (guessAttempts === 2) {
     }
 
 
-    /* -----------------------------------------------------
-       المحاولات التالية:
-       تضييق الاحتمالات
-    ----------------------------------------------------- */
+    /* -------------------------
+       AFTER 7 ATTEMPTS
+    ------------------------- */
 
     if (guessAttempts >= 7) {
 
@@ -1641,15 +1650,27 @@ if (guessAttempts === 2) {
 }
 
 
-/* تشغيل اللعبة */
+/* -------------------------
+   BUTTONS
+------------------------- */
 
 if (
+    guessGameBtn &&
+    guessGame &&
     guessInput &&
     guessButton &&
     guessResult
 ) {
 
-    createSecretNumber();
+    guessGameBtn.addEventListener("click", () => {
+
+        guessGame.classList.remove("hidden");
+
+        createSecretNumber();
+
+        guessGameBtn.textContent =
+            "إعادة اللعبة 🔄";
+    });
 
 
     guessButton.addEventListener(
@@ -1663,14 +1684,12 @@ if (
         event => {
 
             if (event.key === "Enter") {
-
                 checkGuess();
             }
+
         }
     );
 }
-
-
 /* =========================================================
    ORDER GAME
    ترتيب عربي من اليمين إلى اليسار
