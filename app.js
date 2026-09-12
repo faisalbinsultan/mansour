@@ -1391,251 +1391,290 @@ activityOptions.forEach(container => {
    GUESS NUMBER GAME
 ========================================================= */
 
-const guessGameBtn =
-    document.getElementById("guessGameBtn");
-
-const guessGameResult =
-    document.getElementById("guessGameResult");
+const guessInput = document.querySelector("#guessInput");
+const guessButton = document.querySelector("#guessButton");
+const guessResult = document.querySelector("#guessResult");
 
 let secretNumber = 0;
 let guessAttempts = 0;
 
 
-if (guessGameBtn) {
+/* إنشاء عدد سري جديد */
 
-    guessGameBtn.addEventListener("click", () => {
+function createSecretNumber() {
 
-        // رقم سري من 10 إلى 99
-        secretNumber =
-            Math.floor(Math.random() * 90) + 10;
+    /* العدد السري من 1 إلى 99 */
+    secretNumber =
+        Math.floor(Math.random() * 99) + 1;
 
-        guessAttempts = 0;
+    guessAttempts = 0;
 
-        guessGameBtn.textContent =
-            "ابدأ لعبة جديدة 🔄";
+    guessInput.value = "";
 
+    guessInput.disabled = false;
+    guessButton.disabled = false;
 
-        guessGameResult.innerHTML = `
-            <div style="margin-top:15px;">
-
-                <strong>
-                    🕵️‍♂️ أنا أفكر في عدد من 10 إلى 99
-                </strong>
-
-                <p style="margin:10px 0;">
-                    لا تستعجل! فكّر وحاول اكتشاف العدد من التلميحات 🧠
-                </p>
-
-                <div
-                    id="guessHint"
-                    style="
-                        background:#f7f9fc;
-                        padding:12px;
-                        border-radius:12px;
-                        margin:12px 0;
-                    "
-                >
-                    💡 التلميح الأول:
-                    العدد
-                    ${
-                        secretNumber % 2 === 0
-                            ? "زوجي 🔵"
-                            : "فردي 🟢"
-                    }
-                </div>
-
-                <p>
-                    اكتب تخمينك:
-                </p>
-
-                <input
-                    id="guessInput"
-                    type="number"
-                    min="10"
-                    max="99"
-                    inputmode="numeric"
-                    placeholder="؟"
-                    style="
-                        width:100px;
-                        padding:10px;
-                        border-radius:10px;
-                        border:2px solid #ddd;
-                        text-align:center;
-                        font-size:18px;
-                    "
-                >
-
-                <button
-                    id="guessSubmit"
-                    class="btn btn-small"
-                    type="button"
-                    style="margin-right:8px;"
-                >
-                    تحقق 🎯
-                </button>
-
-                <p
-                    id="guessFeedback"
-                    style="margin-top:12px;"
-                ></p>
-
-            </div>
-        `;
+    guessResult.textContent =
+        "🤔 أنا أفكر في عدد من 1 إلى 99... خمن وش هو!";
+}
 
 
-        const guessInput =
-            document.getElementById("guessInput");
+/* التحقق من التخمين */
 
-        const guessSubmit =
-            document.getElementById("guessSubmit");
+function checkGuess() {
 
-        const guessFeedback =
-            document.getElementById("guessFeedback");
-
-        const guessHint =
-            document.getElementById("guessHint");
+    const guess =
+        Number(guessInput.value);
 
 
-        guessSubmit.addEventListener("click", () => {
+    /* التأكد من صحة الإدخال */
 
-            const userGuess =
-                Number(guessInput.value);
+    if (
+        !Number.isInteger(guess) ||
+        guess < 1 ||
+        guess > 99
+    ) {
+
+        guessResult.textContent =
+            "🔢 اكتب عددًا من 1 إلى 99.";
+
+        return;
+    }
 
 
-            if (
-                !userGuess ||
-                userGuess < 10 ||
-                userGuess > 99
-            ) {
+    guessAttempts++;
 
-                guessFeedback.textContent =
-                    "✏️ اكتب عددًا من 10 إلى 99.";
 
-                return;
+    /* الإجابة الصحيحة */
+
+    if (guess === secretNumber) {
+
+        guessResult.textContent =
+            `🎉 كفو يا بطل! عرفت العدد ${secretNumber} بعد ${guessAttempts} محاولة ⭐`;
+
+        addScore(5);
+
+        guessInput.disabled = true;
+        guessButton.disabled = true;
+
+        return;
+    }
+
+
+    /* =====================================================
+       التلميحات
+    ===================================================== */
+
+    const secretTens =
+        Math.floor(secretNumber / 10);
+
+    const secretOnes =
+        secretNumber % 10;
+
+
+    /* -----------------------------------------------------
+       المحاولة الأولى:
+       أكبر أو أصغر
+    ----------------------------------------------------- */
+
+    if (guessAttempts === 1) {
+
+        if (guess < secretNumber) {
+
+            guessResult.textContent =
+                "❌ مو هو! 🔍 العدد السري أكبر من تخمينك.";
+
+        } else {
+
+            guessResult.textContent =
+                "❌ مو هو! 🔍 العدد السري أصغر من تخمينك.";
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       المحاولة الثانية:
+       نطاق العدد
+    ----------------------------------------------------- */
+
+    if (guessAttempts === 2) {
+
+        if (secretNumber < 10) {
+
+            guessResult.textContent =
+                "🧠 تلميح: العدد السري من الأعداد من 1 إلى 9.";
+
+        } else if (secretNumber < 50) {
+
+            guessResult.textContent =
+                "🧠 تلميح: العدد السري أصغر من 50.";
+
+        } else {
+
+            guessResult.textContent =
+                "🧠 تلميح: العدد السري أكبر من 50.";
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       المحاولة الثالثة:
+       زوجي أو فردي
+    ----------------------------------------------------- */
+
+    if (guessAttempts === 3) {
+
+        if (secretNumber % 2 === 0) {
+
+            guessResult.textContent =
+                "🔵 تلميح: العدد السري عدد زوجي.";
+
+        } else {
+
+            guessResult.textContent =
+                "🟠 تلميح: العدد السري عدد فردي.";
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       المحاولة الرابعة:
+       القيمة المنزلية
+    ----------------------------------------------------- */
+
+    if (guessAttempts === 4) {
+
+        if (secretNumber < 10) {
+
+            guessResult.textContent =
+                "🧠 تلميح: العدد السري يتكون من رقم واحد.";
+
+        } else if (secretTens > secretOnes) {
+
+            guessResult.textContent =
+                "🧠 تلميح: رقم العشرات أكبر من رقم الآحاد.";
+
+        } else if (secretTens < secretOnes) {
+
+            guessResult.textContent =
+                "🧠 تلميح: رقم الآحاد أكبر من رقم العشرات.";
+
+        } else {
+
+            guessResult.textContent =
+                "🧠 تلميح: رقم العشرات ورقم الآحاد متساويان.";
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       المحاولة الخامسة:
+       مجموع الرقمين
+    ----------------------------------------------------- */
+
+    if (guessAttempts === 5) {
+
+        if (secretNumber < 10) {
+
+            guessResult.textContent =
+                `➕ تلميح: إذا أضفت العدد إلى نفسه يصبح ${secretNumber * 2}.`;
+
+        } else {
+
+            const digitSum =
+                secretTens + secretOnes;
+
+            guessResult.textContent =
+                `➕ تلميح: مجموع رقم العشرات ورقم الآحاد يساوي ${digitSum}.`;
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       المحاولة السادسة:
+       الفرق بين الرقمين
+    ----------------------------------------------------- */
+
+    if (guessAttempts === 6) {
+
+        if (secretNumber < 10) {
+
+            guessResult.textContent =
+                "🔍 تلميح: العدد السري من 1 إلى 9.";
+
+        } else {
+
+            const digitDifference =
+                Math.abs(secretTens - secretOnes);
+
+            guessResult.textContent =
+                `➖ تلميح: الفرق بين رقم العشرات ورقم الآحاد يساوي ${digitDifference}.`;
+        }
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       المحاولات التالية:
+       تضييق الاحتمالات
+    ----------------------------------------------------- */
+
+    if (guessAttempts >= 7) {
+
+        if (guess < secretNumber) {
+
+            guessResult.textContent =
+                `🔎 العدد أكبر من ${guess}... حاول تحصر الاحتمالات!`;
+
+        } else {
+
+            guessResult.textContent =
+                `🔎 العدد أصغر من ${guess}... حاول تحصر الاحتمالات!`;
+        }
+
+        return;
+    }
+}
+
+
+/* تشغيل اللعبة */
+
+if (
+    guessInput &&
+    guessButton &&
+    guessResult
+) {
+
+    createSecretNumber();
+
+
+    guessButton.addEventListener(
+        "click",
+        checkGuess
+    );
+
+
+    guessInput.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key === "Enter") {
+
+                checkGuess();
             }
-
-
-            guessAttempts++;
-
-
-            // إذا عرف الرقم
-            if (userGuess === secretNumber) {
-
-                guessFeedback.innerHTML =
-                    `🎉 كفو يا بطل! عرفت العدد بعد ${guessAttempts} محاولة! ⭐`;
-
-                guessSubmit.disabled = true;
-                guessInput.disabled = true;
-
-                addScore(5);
-
-                return;
-            }
-
-
-            // أكبر أو أصغر
-            if (userGuess < secretNumber) {
-
-                guessFeedback.innerHTML =
-                    "🔼 العدد السري أكبر من تخمينك!";
-
-            } else {
-
-                guessFeedback.innerHTML =
-                    "🔽 العدد السري أصغر من تخمينك!";
-
-            }
-
-
-            /*
-             * تلميحات متدرجة
-             * لا نكشف الرقم نفسه
-             */
-
-            const tens =
-                Math.floor(secretNumber / 10);
-
-            const ones =
-                secretNumber % 10;
-
-            const sum =
-                tens + ones;
-
-            const product =
-                tens * ones;
-
-            const difference =
-                Math.abs(tens - ones);
-
-
-            if (guessAttempts === 1) {
-
-                guessHint.innerHTML = `
-                    💡 <strong>التلميح الأول:</strong>
-                    العدد
-                    ${
-                        secretNumber % 2 === 0
-                            ? "زوجي 🔵"
-                            : "فردي 🟢"
-                    }
-                `;
-
-            }
-
-            else if (guessAttempts === 2) {
-
-                guessHint.innerHTML = `
-                    💡 <strong>التلميح الثاني:</strong>
-                    رقم العشرات
-                    ${
-                        tens >= 5
-                            ? "أكبر من أو يساوي 5 🔟"
-                            : "أصغر من 5 🔟"
-                    }
-                `;
-
-            }
-
-            else if (guessAttempts === 3) {
-
-                guessHint.innerHTML = `
-                    💡 <strong>التلميح الثالث:</strong>
-                    مجموع رقمي العدد = <strong>${sum}</strong> ➕
-                    <br>
-                    فكّر: أي عدد من 10 إلى 99 يحقق هذا المجموع؟
-                `;
-
-            }
-
-            else if (guessAttempts === 4) {
-
-                guessHint.innerHTML = `
-                    💡 <strong>التلميح الرابع:</strong>
-                    حاصل ضرب رقمي العدد = <strong>${product}</strong> ✖️
-                    <br>
-                    استخدم التلميحات السابقة مع هذا التلميح 🧠
-                `;
-
-            }
-
-            else if (guessAttempts >= 5) {
-
-                guessHint.innerHTML = `
-                    💡 <strong>تلميح إضافي:</strong>
-                    الفرق بين رقمي العدد = <strong>${difference}</strong> ➖
-                    <br>
-                    🔎 اجمع كل التلميحات وحاول اكتشاف العدد!
-                `;
-
-            }
-
-        });
-
-
-        guessInput.focus();
-
-    });
-
+        }
+    );
 }
 
 
