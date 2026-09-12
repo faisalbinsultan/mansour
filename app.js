@@ -1499,26 +1499,19 @@ function checkGuess() {
        نطاق العدد
     ----------------------------------------------------- */
 
-    if (guessAttempts === 2) {
+if (guessAttempts === 2) {
+    if (secretNumber < 10) {
+        guessResult.textContent =
+            "🧠 تلميح: العدد السري من الأعداد من 1 إلى 9.";
+    } else {
+        const tensStart = secretTens * 10;
+        const tensEnd = tensStart + 9;
 
-        if (secretNumber < 10) {
-
-            guessResult.textContent =
-                "🧠 تلميح: العدد السري من الأعداد من 1 إلى 9.";
-
-        } else if (secretNumber < 50) {
-
-            guessResult.textContent =
-                "🧠 تلميح: العدد السري أصغر من 50.";
-
-        } else {
-
-            guessResult.textContent =
-                "🧠 تلميح: العدد السري أكبر من 50.";
-        }
-
-        return;
+        guessResult.textContent =
+            `🧠 تلميح: العدد السري بين ${tensStart} و${tensEnd}.`;
     }
+    return;
+}
 
 
     /* -----------------------------------------------------
