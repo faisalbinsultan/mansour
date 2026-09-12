@@ -2850,3 +2850,65 @@ setTimeout(() => {
     );
 
 }, 1200);
+/* =========================================================
+   INTRO VIDEO
+========================================================= */
+
+const introVideo =
+    document.getElementById("introVideo");
+
+const introVideoPlayer =
+    document.getElementById("introVideoPlayer");
+
+const introPlayBtn =
+    document.getElementById("introPlayBtn");
+
+
+if (
+    introVideo &&
+    introVideoPlayer &&
+    introPlayBtn
+) {
+
+    /* إخفاء المقدمة */
+
+    function hideIntroVideo() {
+
+        introVideo.classList.add("hidden");
+
+        setTimeout(() => {
+
+            introVideo.style.display = "none";
+
+        }, 600);
+
+    }
+
+
+    /* تشغيل الفيديو بعد ضغط الطالب */
+
+    introPlayBtn.addEventListener(
+        "click",
+        () => {
+
+            introPlayBtn.style.display =
+                "none";
+
+            introVideoPlayer.play();
+
+        }
+    );
+
+
+    /* بعد انتهاء الفيديو */
+
+    introVideoPlayer.addEventListener(
+        "ended",
+        () => {
+
+            hideIntroVideo();
+
+        }
+    );
+
+}
