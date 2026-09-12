@@ -1289,70 +1289,107 @@ activityOptions.forEach(container => {
         );
 
 
+    let attempts = 0;
+
+
     buttons.forEach(button => {
 
         button.addEventListener("click", () => {
-
-            if (
-                container.dataset.completed === "true"
-            ) {
-                return;
-            }
-
-
-            container.dataset.completed = "true";
-
 
             const isCorrect =
                 button.dataset.answer === "true";
 
 
-            buttons.forEach(item => {
-                item.disabled = true;
-            });
+            attempts++;
 
+
+            /* =========================================
+               CORRECT ANSWER
+            ========================================= */
 
             if (isCorrect) {
 
+                // منع تكرار احتساب النقاط
+                if (
+                    container.dataset.completed === "true"
+                ) {
+                    return;
+                }
+
+
+                container.dataset.completed = "true";
+
+
                 button.classList.add("correct");
+
 
                 feedback.textContent =
                     "🎉 ممتاز! إجابتك صحيحة ⭐";
 
+
                 feedback.style.color =
                     "#2eae5d";
 
+
+                buttons.forEach(item => {
+                    item.disabled = true;
+                });
+
+
                 addScore(5);
+
+
+                return;
+            }
+
+
+            /* =========================================
+               WRONG ANSWER
+            ========================================= */
+
+            button.classList.add("wrong");
+
+
+            // إزالة علامة الخطأ بعد لحظات
+            setTimeout(() => {
+                button.classList.remove("wrong");
+            }, 700);
+
+
+            /*
+             * لا نعطل الأزرار هنا
+             * حتى يستطيع الطالب المحاولة مرة أخرى
+             */
+
+
+            if (attempts === 1) {
+
+                feedback.textContent =
+                    "💪 مو صحيح، فكّر شوي وجرب مرة ثانية!";
+
+
+            } else if (attempts === 2) {
+
+                feedback.textContent =
+                    "🧠 قريب! ركّز على المنازل أو العملية المطلوبة.";
+
 
             } else {
 
-                button.classList.add("wrong");
-
                 feedback.textContent =
-                    "💪 حاول مرة ثانية! الإجابة الصحيحة موجودة أمامك.";
-
-                feedback.style.color =
-                    "#ed4770";
-
-
-                buttons.forEach(item => {
-
-                    if (
-                        item.dataset.answer === "true"
-                    ) {
-                        item.classList.add("correct");
-                    }
-
-                });
+                    "🔎 خذ وقتك وفكّر خطوة خطوة، أنت تقدر!";
 
             }
+
+
+            feedback.style.color =
+                "#ed4770";
 
         });
 
     });
 
 });
-
 
 /* =========================================================
    GUESS NUMBER GAME
