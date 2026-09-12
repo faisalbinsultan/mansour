@@ -3086,3 +3086,31 @@ img {
     }
 
 }
+/* =========================================================
+   VISITOR COUNTER
+========================================================= */
+
+.visitor-counter {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 25px auto;
+
+    color: var(--text-light);
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.visitor-counter img {
+    height: 24px;
+
+    width: auto;
+
+    display: block;
+}
