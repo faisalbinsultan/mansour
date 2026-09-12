@@ -1372,9 +1372,9 @@ if (guessGameBtn) {
 
     guessGameBtn.addEventListener("click", () => {
 
-        // اختيار رقم سري جديد من 1 إلى 20
+        // رقم سري من 10 إلى 99
         secretNumber =
-            Math.floor(Math.random() * 20) + 1;
+            Math.floor(Math.random() * 90) + 10;
 
         guessAttempts = 0;
 
@@ -1386,21 +1386,44 @@ if (guessGameBtn) {
             <div style="margin-top:15px;">
 
                 <strong>
-                    🤔 أنا أفكر في عدد من 1 إلى 20
+                    🕵️‍♂️ أنا أفكر في عدد من 10 إلى 99
                 </strong>
 
                 <p style="margin:10px 0;">
-                    فكّر جيدًا واكتب تخمينك!
+                    لا تستعجل! فكّر وحاول اكتشاف العدد من التلميحات 🧠
+                </p>
+
+                <div
+                    id="guessHint"
+                    style="
+                        background:#f7f9fc;
+                        padding:12px;
+                        border-radius:12px;
+                        margin:12px 0;
+                    "
+                >
+                    💡 التلميح الأول:
+                    العدد
+                    ${
+                        secretNumber % 2 === 0
+                            ? "زوجي 🔵"
+                            : "فردي 🟢"
+                    }
+                </div>
+
+                <p>
+                    اكتب تخمينك:
                 </p>
 
                 <input
                     id="guessInput"
                     type="number"
-                    min="1"
-                    max="20"
+                    min="10"
+                    max="99"
+                    inputmode="numeric"
                     placeholder="؟"
                     style="
-                        width:90px;
+                        width:100px;
                         padding:10px;
                         border-radius:10px;
                         border:2px solid #ddd;
@@ -1436,6 +1459,9 @@ if (guessGameBtn) {
         const guessFeedback =
             document.getElementById("guessFeedback");
 
+        const guessHint =
+            document.getElementById("guessHint");
+
 
         guessSubmit.addEventListener("click", () => {
 
@@ -1443,15 +1469,14 @@ if (guessGameBtn) {
                 Number(guessInput.value);
 
 
-            // التأكد من إدخال رقم صحيح
             if (
                 !userGuess ||
-                userGuess < 1 ||
-                userGuess > 20
+                userGuess < 10 ||
+                userGuess > 99
             ) {
 
                 guessFeedback.textContent =
-                    "✏️ اكتب عددًا من 1 إلى 20.";
+                    "✏️ اكتب عددًا من 10 إلى 99.";
 
                 return;
             }
@@ -1460,7 +1485,7 @@ if (guessGameBtn) {
             guessAttempts++;
 
 
-            // إذا كانت الإجابة صحيحة
+            // إذا عرف الرقم
             if (userGuess === secretNumber) {
 
                 guessFeedback.innerHTML =
@@ -1475,29 +1500,98 @@ if (guessGameBtn) {
             }
 
 
-            // إذا كان التخمين أصغر من الرقم السري
+            // أكبر أو أصغر
             if (userGuess < secretNumber) {
 
                 guessFeedback.innerHTML =
-                    "🔼 العدد السري أكبر من تخمينك!<br>💡 جرّب عددًا أكبر.";
+                    "🔼 العدد السري أكبر من تخمينك!";
 
-            }
-
-            // إذا كان التخمين أكبر من الرقم السري
-            else {
+            } else {
 
                 guessFeedback.innerHTML =
-                    "🔽 العدد السري أصغر من تخمينك!<br>💡 جرّب عددًا أصغر.";
+                    "🔽 العدد السري أصغر من تخمينك!";
 
             }
 
 
-            // بعد عدة محاولات نعطي تلميحًا إضافيًا
-            if (guessAttempts >= 3) {
+            /*
+             * تلميحات متدرجة
+             * لا نكشف الرقم نفسه
+             */
 
-                guessFeedback.innerHTML += `
-                    <br>🧠 تلميح إضافي: فكّر في الأعداد
-                    بين تخمينك الأخير والحد الذي أعطيتك إياه.
+            const tens =
+                Math.floor(secretNumber / 10);
+
+            const ones =
+                secretNumber % 10;
+
+            const sum =
+                tens + ones;
+
+            const product =
+                tens * ones;
+
+            const difference =
+                Math.abs(tens - ones);
+
+
+            if (guessAttempts === 1) {
+
+                guessHint.innerHTML = `
+                    💡 <strong>التلميح الأول:</strong>
+                    العدد
+                    ${
+                        secretNumber % 2 === 0
+                            ? "زوجي 🔵"
+                            : "فردي 🟢"
+                    }
+                `;
+
+            }
+
+            else if (guessAttempts === 2) {
+
+                guessHint.innerHTML = `
+                    💡 <strong>التلميح الثاني:</strong>
+                    رقم العشرات
+                    ${
+                        tens >= 5
+                            ? "أكبر من أو يساوي 5 🔟"
+                            : "أصغر من 5 🔟"
+                    }
+                `;
+
+            }
+
+            else if (guessAttempts === 3) {
+
+                guessHint.innerHTML = `
+                    💡 <strong>التلميح الثالث:</strong>
+                    مجموع رقمي العدد = <strong>${sum}</strong> ➕
+                    <br>
+                    فكّر: أي عدد من 10 إلى 99 يحقق هذا المجموع؟
+                `;
+
+            }
+
+            else if (guessAttempts === 4) {
+
+                guessHint.innerHTML = `
+                    💡 <strong>التلميح الرابع:</strong>
+                    حاصل ضرب رقمي العدد = <strong>${product}</strong> ✖️
+                    <br>
+                    استخدم التلميحات السابقة مع هذا التلميح 🧠
+                `;
+
+            }
+
+            else if (guessAttempts >= 5) {
+
+                guessHint.innerHTML = `
+                    💡 <strong>تلميح إضافي:</strong>
+                    الفرق بين رقمي العدد = <strong>${difference}</strong> ➖
+                    <br>
+                    🔎 اجمع كل التلميحات وحاول اكتشاف العدد!
                 `;
 
             }
@@ -1506,6 +1600,233 @@ if (guessGameBtn) {
 
 
         guessInput.focus();
+
+    });
+
+}
+
+
+/* =========================================================
+   ORDER GAME
+========================================================= */
+
+const orderGameBtn =
+    document.getElementById("orderGameBtn");
+
+const orderGameResult =
+    document.getElementById("orderGameResult");
+
+let orderNumbers = [];
+let orderCorrectAnswer = [];
+
+
+if (orderGameBtn) {
+
+    orderGameBtn.addEventListener("click", () => {
+
+        orderNumbers = [];
+
+        // إنشاء 3 أعداد مختلفة
+        while (orderNumbers.length < 3) {
+
+            const number =
+                Math.floor(Math.random() * 90) + 10;
+
+            if (!orderNumbers.includes(number)) {
+                orderNumbers.push(number);
+            }
+
+        }
+
+
+        orderCorrectAnswer =
+            [...orderNumbers].sort(
+                (a, b) => a - b
+            );
+
+
+        orderGameBtn.textContent =
+            "تحداني مرة ثانية 🔄";
+
+
+        orderGameResult.innerHTML = `
+
+            <div style="margin-top:15px;">
+
+                <strong>
+                    🔢 رتّب الأعداد من الأصغر إلى الأكبر
+                </strong>
+
+                <div
+                    style="
+                        font-size:22px;
+                        font-weight:800;
+                        margin:15px 0;
+                    "
+                >
+                    ${orderNumbers.join("  •  ")}
+                </div>
+
+                <p>
+                    اكتب الأعداد في الخانات بالترتيب الصحيح:
+                </p>
+
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                        gap:8px;
+                        direction:ltr;
+                        margin:15px 0;
+                    "
+                >
+
+                    <input
+                        id="orderInput1"
+                        type="number"
+                        inputmode="numeric"
+                        placeholder="1"
+                        style="
+                            width:75px;
+                            padding:10px;
+                            border-radius:10px;
+                            border:2px solid #ddd;
+                            text-align:center;
+                            font-size:18px;
+                        "
+                    >
+
+                    <span style="font-size:20px;">
+                        →
+                    </span>
+
+                    <input
+                        id="orderInput2"
+                        type="number"
+                        inputmode="numeric"
+                        placeholder="2"
+                        style="
+                            width:75px;
+                            padding:10px;
+                            border-radius:10px;
+                            border:2px solid #ddd;
+                            text-align:center;
+                            font-size:18px;
+                        "
+                    >
+
+                    <span style="font-size:20px;">
+                        →
+                    </span>
+
+                    <input
+                        id="orderInput3"
+                        type="number"
+                        inputmode="numeric"
+                        placeholder="3"
+                        style="
+                            width:75px;
+                            padding:10px;
+                            border-radius:10px;
+                            border:2px solid #ddd;
+                            text-align:center;
+                            font-size:18px;
+                        "
+                    >
+
+                </div>
+
+
+                <button
+                    id="orderSubmit"
+                    class="btn btn-small"
+                    type="button"
+                >
+                    تحقق 🎯
+                </button>
+
+
+                <p
+                    id="orderFeedback"
+                    style="margin-top:12px;"
+                ></p>
+
+            </div>
+        `;
+
+
+        const orderInput1 =
+            document.getElementById("orderInput1");
+
+        const orderInput2 =
+            document.getElementById("orderInput2");
+
+        const orderInput3 =
+            document.getElementById("orderInput3");
+
+        const orderSubmit =
+            document.getElementById("orderSubmit");
+
+        const orderFeedback =
+            document.getElementById("orderFeedback");
+
+
+        orderSubmit.addEventListener("click", () => {
+
+            const userNumbers = [
+                Number(orderInput1.value),
+                Number(orderInput2.value),
+                Number(orderInput3.value)
+            ];
+
+
+            // التأكد من تعبئة الخانات
+            if (
+                !orderInput1.value ||
+                !orderInput2.value ||
+                !orderInput3.value
+            ) {
+
+                orderFeedback.textContent =
+                    "✏️ عبّئ الخانات الثلاث أولًا.";
+
+                return;
+            }
+
+
+            const isCorrect =
+                userNumbers.every(
+                    (number, index) =>
+                        number === orderCorrectAnswer[index]
+                );
+
+
+            if (isCorrect) {
+
+                orderFeedback.innerHTML =
+                    "🎉 ممتاز! رتبت الأعداد بشكل صحيح! +5 ⭐";
+
+                orderSubmit.disabled = true;
+
+                orderInput1.disabled = true;
+                orderInput2.disabled = true;
+                orderInput3.disabled = true;
+
+                addScore(5);
+
+            } else {
+
+                orderFeedback.innerHTML =
+                    "💪 مو صحيح! حاول مرة ثانية.<br>🤔 فكّر: أي عدد هو الأصغر؟";
+
+            }
+
+        });
+
+
+        orderInput1.focus();
 
     });
 
