@@ -1372,12 +1372,15 @@ if (guessGameBtn) {
 
     guessGameBtn.addEventListener("click", () => {
 
+        // اختيار رقم سري جديد من 1 إلى 20
         secretNumber =
             Math.floor(Math.random() * 20) + 1;
 
         guessAttempts = 0;
 
-        guessGameBtn.textContent = "ابدأ من جديد 🔄";
+        guessGameBtn.textContent =
+            "ابدأ لعبة جديدة 🔄";
+
 
         guessGameResult.innerHTML = `
             <div style="margin-top:15px;">
@@ -1387,16 +1390,7 @@ if (guessGameBtn) {
                 </strong>
 
                 <p style="margin:10px 0;">
-                    💡 تلميح: العدد
-                    ${
-                        secretNumber % 2 === 0
-                            ? "زوجي"
-                            : "فردي"
-                    }
-                </p>
-
-                <p>
-                    اكتب تخمينك:
+                    فكّر جيدًا واكتب تخمينك!
                 </p>
 
                 <input
@@ -1449,6 +1443,7 @@ if (guessGameBtn) {
                 Number(guessInput.value);
 
 
+            // التأكد من إدخال رقم صحيح
             if (
                 !userGuess ||
                 userGuess < 1 ||
@@ -1465,13 +1460,13 @@ if (guessGameBtn) {
             guessAttempts++;
 
 
+            // إذا كانت الإجابة صحيحة
             if (userGuess === secretNumber) {
 
                 guessFeedback.innerHTML =
                     `🎉 كفو يا بطل! عرفت العدد بعد ${guessAttempts} محاولة! ⭐`;
 
                 guessSubmit.disabled = true;
-
                 guessInput.disabled = true;
 
                 addScore(5);
@@ -1480,15 +1475,30 @@ if (guessGameBtn) {
             }
 
 
+            // إذا كان التخمين أصغر من الرقم السري
             if (userGuess < secretNumber) {
 
-                guessFeedback.textContent =
-                    "🔼 العدد السري أكبر من تخمينك... حاول مرة ثانية!";
+                guessFeedback.innerHTML =
+                    "🔼 العدد السري أكبر من تخمينك!<br>💡 جرّب عددًا أكبر.";
 
-            } else {
+            }
 
-                guessFeedback.textContent =
-                    "🔽 العدد السري أصغر من تخمينك... حاول مرة ثانية!";
+            // إذا كان التخمين أكبر من الرقم السري
+            else {
+
+                guessFeedback.innerHTML =
+                    "🔽 العدد السري أصغر من تخمينك!<br>💡 جرّب عددًا أصغر.";
+
+            }
+
+
+            // بعد عدة محاولات نعطي تلميحًا إضافيًا
+            if (guessAttempts >= 3) {
+
+                guessFeedback.innerHTML += `
+                    <br>🧠 تلميح إضافي: فكّر في الأعداد
+                    بين تخمينك الأخير والحد الذي أعطيتك إياه.
+                `;
 
             }
 
