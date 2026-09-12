@@ -938,39 +938,56 @@
 
 
                 <!-- GUESS NUMBER -->
+<article class="game-card game-number">
+    <div class="game-art">🔢</div>
 
-                <article class="game-card game-number">
+    <div>
+        <h3>خمن العدد</h3>
 
-                    <div class="game-art">
-                        🔢
-                    </div>
+        <p>
+            فكّر وخمّن العدد السري من 1 إلى 99،
+            وكل محاولة تعطيك تلميحًا يساعدك.
+        </p>
 
-                    <div>
+        <button class="btn btn-small" id="guessGameBtn">
+            ابدأ اللعبة
+        </button>
 
-                        <h3>
-                            خمن العدد
-                        </h3>
+        <div id="guessGame" class="hidden">
 
-                        <p>
-                            اضغط وخل النظام يعطيك تلميحًا عن عدد سري.
-                        </p>
+            <p class="game-result" id="guessResult"></p>
 
-                        <button
-                            class="btn btn-small"
-                            id="guessGameBtn"
-                        >
-                            ابدأ اللعبة
-                        </button>
+            <div style="
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                gap:10px;
+                margin:15px 0;
+                direction:rtl;
+            ">
 
+                <input
+                    type="number"
+                    id="guessInput"
+                    min="1"
+                    max="99"
+                    placeholder="اكتب العدد"
+                    style="width:130px;"
+                >
 
-                        <p
-                            class="game-result"
-                            id="guessGameResult"
-                        ></p>
+                <button
+                    class="btn btn-small"
+                    id="guessButton"
+                    type="button"
+                >
+                    خمن
+                </button>
 
-                    </div>
+            </div>
 
-                </article>
+        </div>
+    </div>
+</article>
 
 
 
