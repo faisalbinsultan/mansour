@@ -3114,3 +3114,47 @@ img {
 
     display: block;
 }
+
+/* =========================================================
+   REPLAY INTRO BUTTON
+========================================================= */
+
+.replay-intro-btn {
+    margin-top: 18px;
+
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 999px;
+
+    background: #1554b7;
+
+    color: #ffffff;
+
+    font-family: "Tajawal", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.replay-intro-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 22px rgba(0, 0, 0, 0.2);
+}
+
+.replay-intro-btn:active {
+    transform: translateY(0) scale(0.97);
+}
