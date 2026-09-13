@@ -2851,7 +2851,7 @@ setTimeout(() => {
 
 }, 1200);
 /* =========================================================
-   INTRO VIDEO
+   INTRO VIDEO - FIRST VISIT + REPLAY BUTTON
 ========================================================= */
 
 const introVideo =
@@ -2863,6 +2863,8 @@ const introVideoPlayer =
 const introPlayBtn =
     document.getElementById("introPlayBtn");
 
+const replayIntroBtn =
+    document.getElementById("replayIntroBtn");
 
 if (
     introVideo &&
@@ -2870,7 +2872,9 @@ if (
     introPlayBtn
 ) {
 
-    /* إخفاء المقدمة */
+    const introSeen =
+        localStorage.getItem("mansourIntroSeen");
+
 
     function hideIntroVideo() {
 
@@ -2885,23 +2889,51 @@ if (
     }
 
 
-    /* تشغيل الفيديو بعد ضغط الطالب */
+    function showIntroVideo() {
 
-    introPlayBtn.addEventListener(
-        "click",
-        () => {
+        introVideo.style.display = "flex";
 
-            introPlayBtn.style.display =
-                "none";
+        introVideo.classList.remove("hidden");
 
-            introVideoPlayer.play();
+        introPlayBtn.style.display = "none";
 
-        }
-    );
+        introVideoPlayer.currentTime = 0;
+
+        introVideoPlayer.play();
+
+    }
 
 
-    /* بعد انتهاء الفيديو */
+    // أول زيارة فقط
+    if (introSeen === "true") {
 
+        introVideo.style.display = "none";
+
+    } else {
+
+        introPlayBtn.style.display = "block";
+
+        introPlayBtn.addEventListener(
+            "click",
+            () => {
+
+                localStorage.setItem(
+                    "mansourIntroSeen",
+                    "true"
+                );
+
+                introPlayBtn.style.display =
+                    "none";
+
+                introVideoPlayer.play();
+
+            }
+        );
+
+    }
+
+
+    // عند انتهاء الفيديو
     introVideoPlayer.addEventListener(
         "ended",
         () => {
@@ -2910,5 +2942,20 @@ if (
 
         }
     );
+
+
+    // زر مشاهدة الترحيب مرة ثانية
+    if (replayIntroBtn) {
+
+        replayIntroBtn.addEventListener(
+            "click",
+            () => {
+
+                showIntroVideo();
+
+            }
+        );
+
+    }
 
 }
