@@ -2934,14 +2934,22 @@ if (
 
 
     // عند انتهاء الفيديو
-    introVideoPlayer.addEventListener(
-        "ended",
-        () => {
+introVideoPlayer.addEventListener(
+    "ended",
+    () => {
 
-            hideIntroVideo();
+        hideIntroVideo();
 
-        }
-    );
+        setTimeout(() => {
+
+            showToast(
+                "👋 هلا يا بطل! جاهز نبدأ رحلة الرياضيات؟"
+            );
+
+        }, 700);
+
+    }
+);
 
 
     // زر مشاهدة الترحيب مرة ثانية
